@@ -233,7 +233,7 @@ function City(props) {
   return (
     <>
       <ul>
-        {states.cities.map((city, index) => {
+        {props.cities.map((city, index) => {
           return <Cityprint index={index} cities={city}></Cityprint>;
         })}
       </ul>
@@ -244,18 +244,17 @@ function City(props) {
 function State(props) {
   const [getFlag, setFlag] = useState(false);
 
-  const toggleState = (e) => {
-    e.stopPropogation();
-    if (getFlag) {
-      setFlag(false);
-    } else setFlag(true);
+  const hideANDshow2 = (e) => {
+    e.stopPropagation();
+    if (getFlag) setFlag(false);
+    else setFlag(true);
   };
 
   return (
     <>
-      <li id={`state${props.index + 1}`} onClick={toggleState}>
+      <li id={"state" + (props.index + 1)} onClick={hideANDshow2}>
         {props.states.name}
-        {getFlag && <City>{props.states.cities}</City>}
+        {getFlag && <City cities={props.states.cities}></City>}
       </li>
     </>
   );
@@ -264,9 +263,11 @@ function State(props) {
 function App() {
   return (
     <div id="main">
-      {states.map((state, index) => {
-        return <State index={index} states={state}></State>;
-      })}
+      <ul>
+        {states.map((state, index) => {
+          return <State index={index} states={state}></State>;
+        })}
+      </ul>
     </div>
   );
 }
